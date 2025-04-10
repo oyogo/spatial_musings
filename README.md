@@ -12,7 +12,8 @@ This folder contains scripts and workflows for preprocessing and preparing geosp
 
 ### 🤖 `Machine Learning/`      
 
-Here you’ll find geospatial applications of machine learning techniques. This includes notebooks and scripts for spatial prediction tasks (e.g., land cover classification, spatial interpolation), spatial cross-validation, and integration of satellite data with ground truth data.      
+Here you’ll find geospatial applications of machine learning techniques. This includes notebooks and scripts for spatial prediction tasks (e.g., land cover classification, spatial interpolation), spatial cross-validation, and integration of satellite data with ground truth data.   
+   
 ---
 
 ### 🧰 `Methods/`     

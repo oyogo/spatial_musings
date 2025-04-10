@@ -4,8 +4,8 @@ import requests
 import json
 import geemap.foliumap as geemap
 
-service_account = 'sae-718@sae-deep.iam.gserviceaccount.com'
-credentials = ee.ServiceAccountCredentials(service_account,'sae-deep-a0fdb3aadd9f.json')
+service_account = 'xxx@yyy.iam.gserviceaccount.com'
+credentials = ee.ServiceAccountCredentials(service_account,'xxx.json')
 # Initialize Earth Engine with service account credentials
 ee.Initialize(credentials,project="sae-deep")
 

@@ -88,10 +88,10 @@ if __name__ == "__main__":
     client = setup_dask()
 
     # Define paths to folders and base raster
-    base_raster_path = "C:\\Users\\cdavid\\OneDrive\\SAE_Guide_App\\data\\base_rasters\\BGD_level0_100m_2000_2020.tif"
-    folder_1 = "C:\\Users\\cdavid\\OneDrive\\SAE_Guide_App\\data\\BGD\\folder_1"
-    folder_2 = "C:\\Users\\cdavid\\OneDrive\\SAE_Guide_App\\data\\BGD\\folder_2"
-    folder_3 = "C:\\Users\\cdavid\\OneDrive\\SAE_Guide_App\\data\\BGD\\folder_3"
+    base_raster_path = ".\\data\\base_rasters\\BGD_level0_100m_2000_2020.tif"
+    folder_1 = ".\\data\\BGD\\folder_1"
+    folder_2 = ".\\data\\BGD\\folder_2"
+    folder_3 = ".\\data\\BGD\\folder_3"
 
     # Fetch the admin level 3 boundaries
     admin3_geojson = fetch_admin3_boundaries()
@@ -146,7 +146,7 @@ if __name__ == "__main__":
                 combined_zonal_stats_df = pd.merge(combined_zonal_stats_df, zonal_stats_df, on='Region', how='outer')
 
     # Save the combined zonal statistics to a CSV file
-    output_csv = "C:\\Users\\cdavid\\OneDrive\\SAE_Guide_App\\data\\BGD\\zonalstats\\BGD_adm3_zonalstats.csv"
+    output_csv = ".\\data\\BGD\\zonalstats\\BGD_adm3_zonalstats.csv"
     combined_zonal_stats_df.to_csv(output_csv, index=False) 
 
     print(f"Combined zonal statistics saved to: {output_csv}")

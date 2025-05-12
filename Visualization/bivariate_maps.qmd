@@ -1,0 +1,45 @@
+---
+title: "Climatology Map"
+format: html
+editor: visual
+---
+
+```{r}
+
+#install.packages('remotes')
+#remotes::install_github('inSileco/rchelsa')
+#remotes::install_github('chris-prener/biscale')
+#install.packages('rayshader')
+#install.packages('elevatr')
+
+library(geodata)
+library(tidyverse)
+library(sf)
+library(terra)
+library(rchelsa)
+library(biscale)
+library(rayshader)
+library(gridGraphics)
+library(cowplot)
+library(elevatr) 
+
+```
+
+## CHELSA DATA
+
+```{r}
+
+# Define a vector of IDs to download
+ids <- c(1,12)
+
+# function to download CHESLA data
+download_chelsa_data <- function(id, path){
+  
+  rchelsa::get_chelsea_data(
+    categ = 'clim', type = 'bio',
+    id = id, path = path
+  )
+}
+
+```
+

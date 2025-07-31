@@ -14,7 +14,7 @@ from rasterio.enums import Resampling # raster resampling methods
 def setup_dask():
     client = Client(memory_limit='16GB', n_workers=4, threads_per_worker=2, processes=True)
     return client
-
+# BGD=Bangladesh --- Use the ISO three letter code for the country of interest.
 # Function to download admin level 3 boundaries from GitHub for specified country(using the 3 letter country code)
 def fetch_admin3_boundaries(country_code='BGD', admin_level='ADM3'):
     geojson_url = f"https://github.com/wmgeolab/geoBoundaries/raw/9469f09/releaseData/gbOpen/{country_code}/{admin_level}/geoBoundaries-{country_code}-{admin_level}_simplified.geojson"
@@ -35,18 +35,8 @@ def match_raster_to_base(raster_path, base_raster_path):
     raster = rioxarray.open_rasterio(raster_path).astype('float32')
     raster = raster.rio.reproject(base_raster.rio.crs) # align the crs of the raster with the base raster
     
-    # Calculate the resolution differences of both rasters, determine the scaling factor to then align resolutions. 
-    raster_resolution_x, raster_resolution_y = raster.rio.resolution()
-    base_raster_resolution_x, base_raster_resolution_y = base_raster.rio.resolution()
-    
-    resampling_factor_x = int(raster_resolution_x / base_raster_resolution_x)
-    resampling_factor_y = int(raster_resolution_y / base_raster_resolution_y)
+    raster_resampled = raster.rio.reproject_match(base_raster, resampling=Resampling.sum)
 
-    if resampling_factor_x > 0 and resampling_factor_y > 0:
-        raster_resampled = raster.coarsen(x=resampling_factor_x, y=resampling_factor_y, boundary='trim').sum()
-    else:
-        raster_resampled = raster
-    
     return raster_resampled
 
 # Function to upsample rasters (nearest neighbor method) for folder_2
@@ -131,7 +121,7 @@ if __name__ == "__main__":
             zonal_stats_df = zonal_stats_df.fillna(0)
 
             for col in ['properties.mean', 'properties.sum', 'properties.min', 'properties.max', 'properties.std','properties.count']:
-                zonal_stats_df[col] = zonal_stats_df[col].astype(float).astype(int)
+                zonal_stats_df[col] = zonal_stats_df[col].astype(float).round(4)
 
             # Get the raster file name (without extension) to append to column names
             raster_name = os.path.splitext(os.path.basename(raster_file))[0]
